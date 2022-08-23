@@ -166,8 +166,11 @@ bool Table::blockify()
             pageCounter = 0;
         }
 
-        if (this->rowCount == 0)
-            return false;
+        if (this->rowCount == 0){
+            cout<<"easda"<<endl;
+             return false;
+        }
+           
         this->distinctValuesInColumns.clear();
     }
 
@@ -221,7 +224,7 @@ bool Table::blockify()
             return false;
         // this->distinctValuesInColumns.clear();
     }
-    return false;
+    return true;
 }
 
 /**

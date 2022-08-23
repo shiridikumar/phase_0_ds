@@ -136,5 +136,6 @@ void Page::writePage()
         }
     }
     fout.close();
+    cout<<"all done"<<endl;
 
 }
