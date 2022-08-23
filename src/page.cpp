@@ -66,13 +66,25 @@ vector<int> Page::getRow(int rowIndex)
         return result;
     return this->rows[rowIndex];
 }
-
 Page::Page(string tableName, int pageIndex, vector<vector<int>> rows, int rowCount)
 {
     logger.log("Page::Page");
     this->tableName = tableName;
     this->pageIndex = pageIndex;
     this->rows = rows;
+    this->rowCount = rowCount;
+    this->columnCount = rows[0].size();
+    this->pageName = "../data/temp/"+this->tableName + "_Page" + to_string(pageIndex);
+}
+
+Page::Page(string tableName, int pageIndex, vector<vector<int>> rows, int rowCount ,vector<int> sep,int start)
+{
+    logger.log("Page::Page");
+    this->tableName = tableName;
+    this->pageIndex = pageIndex;
+    this->rows = rows;
+    this->sep=sep;
+    this->start=start;
     this->rowCount = rowCount;
     this->columnCount = rows[0].size();
     this->pageName = "../data/temp/"+this->tableName + "_Page" + to_string(pageIndex);
@@ -86,15 +98,43 @@ void Page::writePage()
 {
     logger.log("Page::writePage");
     ofstream fout(this->pageName, ios::trunc);
-    for (int rowCounter = 0; rowCounter < this->rowCount; rowCounter++)
-    {
+    if(parsedQuery.ismatrix){
+       
+        cout<<"matrix page "<<this->pageName<<endl;
         for (int columnCounter = 0; columnCounter < this->columnCount; columnCounter++)
         {
-            if (columnCounter != 0)
-                fout << " ";
-            fout << this->rows[rowCounter][columnCounter];
+           
+           if(sep.size()!=0 && columnCounter==sep[this->start]){
+                if(columnCounter!=0){
+                    fout << endl;
+                }
+                cout<<this->start<<" "<<sep.size()<<endl;
+                this->start++;
+            }
+            
+            if(sep.size()>this->start && sep[this->start]==-1){
+                cout<<"end seperator"<<endl;
+                break;
+            }
+            
+            fout << this->rows[0][columnCounter];
+           
         }
-        fout << endl;
+
+
+    }
+    else{
+        for (int rowCounter = 0; rowCounter < this->rowCount; rowCounter++)
+        {
+            for (int columnCounter = 0; columnCounter < this->columnCount; columnCounter++)
+            {
+                if (columnCounter != 0 && !(parsedQuery.ismatrix))
+                    fout << " ";
+                fout << this->rows[rowCounter][columnCounter];
+            }
+            fout << endl;
+        }
     }
     fout.close();
+
 }

@@ -92,6 +92,14 @@ void BufferManager::writePage(string tableName, int pageIndex, vector<vector<int
     page.writePage();
 }
 
+void BufferManager::writePage(string tableName, int pageIndex, vector<vector<int>> rows, int rowCount, vector<int> sep,int start)
+{
+    logger.log("BufferManager::writePage");
+    Page page(tableName, pageIndex, rows, rowCount,sep,start);
+    page.writePage();
+}
+
+
 /**
  * @brief Deletes file names fileName
  *

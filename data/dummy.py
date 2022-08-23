@@ -1,7 +1,6 @@
 import pandas as pd
-a=[[1 for i in range(10000) ] for j in range(10)]
-
+a=[[j for i in range(10) ] for j in range(7-1)]
 df=pd.DataFrame(a)
 df.set_index(0,inplace=True)
-df.columns=[1 for i in range(9999)]
-df.to_csv("dummy.csv")
+df.columns=[7 for i in range(9)]
+df.to_csv("E.csv")
