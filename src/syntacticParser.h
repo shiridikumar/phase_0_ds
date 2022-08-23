@@ -51,6 +51,7 @@ class ParsedQuery
 
 public:
     QueryType queryType = UNDETERMINED;
+    bool ismatrix;
 
     string clearRelationName = "";
 

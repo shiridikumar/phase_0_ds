@@ -55,12 +55,16 @@ bool Table::load()
     logger.log("Table::load");
     fstream fin(this->sourceFileName, ios::in);
     string line;
+    // cout<<"extracting column names for matrix";
     if (getline(fin, line))
     {
         fin.close();
-        if (this->extractColumnNames(line))
+       
+        if (this->extractColumnNames(line)){
+           
             if (this->blockify())
                 return true;
+        }
     }
     fin.close();
     return false;
@@ -84,12 +88,16 @@ bool Table::extractColumnNames(string firstLine)
     while (getline(s, word, ','))
     {
         word.erase(std::remove_if(word.begin(), word.end(), ::isspace), word.end());
-        if (columnNames.count(word))
+        if (columnNames.count(word) && !(parsedQuery.ismatrix))
             return false;
         columnNames.insert(word);
+        
         this->columns.emplace_back(word);
     }
     this->columnCount = this->columns.size();
+    if(parsedQuery.ismatrix){
+        this->maxElementsperblock=(uint)((BLOCK_SIZE * 1000))/(sizeof(int)*(uint)1);
+    }
     this->maxRowsPerBlock = (uint)((BLOCK_SIZE * 1000) / (sizeof(int) * this->columnCount));
     return true;
 }
@@ -103,7 +111,12 @@ bool Table::extractColumnNames(string firstLine)
  */
 bool Table::blockify()
 {
-    logger.log("Table::blockify");
+    if(parsedQuery.ismatrix){
+        logger.log("MATRIX::blockify");
+    }
+    else{
+        logger.log("Table::blockify");
+    }
     ifstream fin(this->sourceFileName, ios::in);
     string line, word;
     vector<int> row(this->columnCount, 0);
@@ -111,41 +124,93 @@ bool Table::blockify()
     int pageCounter = 0;
     unordered_set<int> dummy;
     dummy.clear();
-    this->distinctValuesInColumns.assign(this->columnCount, dummy);
-    this->distinctValuesPerColumnCount.assign(this->columnCount, 0);
-    getline(fin, line);
-    while (getline(fin, line))
-    {
-        stringstream s(line);
-        for (int columnCounter = 0; columnCounter < this->columnCount; columnCounter++)
+    if(!(parsedQuery.ismatrix)){
+        this->distinctValuesInColumns.assign(this->columnCount, dummy);
+        this->distinctValuesPerColumnCount.assign(this->columnCount, 0);
+    }
+    if(!(parsedQuery.ismatrix)){
+        getline(fin, line);
+        while (getline(fin, line))
         {
-            if (!getline(s, word, ','))
-                return false;
-            row[columnCounter] = stoi(word);
-            rowsInPage[pageCounter][columnCounter] = row[columnCounter];
+            stringstream s(line);
+            for (int columnCounter = 0; columnCounter < this->columnCount; columnCounter++)
+            {
+                if (!getline(s, word, ','))
+                    return false;
+                row[columnCounter] = stoi(word);
+                rowsInPage[pageCounter][columnCounter] = row[columnCounter];
+            }
+            pageCounter++;
+            this->updateStatistics(row);
+            if (pageCounter == this->maxRowsPerBlock)
+            {
+                bufferManager.writePage(this->tableName, this->blockCount, rowsInPage, pageCounter);
+                this->blockCount++;
+                this->rowsPerBlockCount.emplace_back(pageCounter);
+                pageCounter = 0;
+            }
         }
-        pageCounter++;
-        this->updateStatistics(row);
-        if (pageCounter == this->maxRowsPerBlock)
+        if (pageCounter)
         {
             bufferManager.writePage(this->tableName, this->blockCount, rowsInPage, pageCounter);
             this->blockCount++;
             this->rowsPerBlockCount.emplace_back(pageCounter);
             pageCounter = 0;
         }
-    }
-    if (pageCounter)
-    {
-        bufferManager.writePage(this->tableName, this->blockCount, rowsInPage, pageCounter);
-        this->blockCount++;
-        this->rowsPerBlockCount.emplace_back(pageCounter);
-        pageCounter = 0;
+
+        if (this->rowCount == 0)
+            return false;
+        this->distinctValuesInColumns.clear();
     }
 
-    if (this->rowCount == 0)
-        return false;
-    this->distinctValuesInColumns.clear();
-    return true;
+
+    //updated blockify for matrix 
+    else{
+        // vector<vector<int>> rowsInPage(this->maxRowsPerBlock, row);
+        // return false;
+
+         while (getline(fin, line))
+        {
+            stringstream s(line);
+            for (int columnCounter = 0; columnCounter < this->columnCount; columnCounter++)
+            {
+                if (!getline(s, word, ','))
+                    return false;
+                if(columnCounter==maxElementsperblock){
+                    cout<<"reached maximum elements in a block";
+                    return false;
+                    break;
+                }
+                row[columnCounter] = stoi(word);
+                // rowsInPage[pageCounter][columnCounter] = row[columnCounter];
+                
+            }
+            pageCounter++;
+            // this->updateStatistics(row);
+            // if (pageCounter == this->maxRowsPerBlock)
+            // {
+            //     bufferManager.writePage(this->tableName, this->blockCount, rowsInPage, pageCounter);
+            //     this->blockCount++;
+            //     this->rowsPerBlockCount.emplace_back(pageCounter);
+            //     pageCounter = 0;
+            // }
+        }
+        // if (pageCounter)
+        // {
+        //     bufferManager.writePage(this->tableName, this->blockCount, rowsInPage, pageCounter);
+        //     this->blockCount++;
+        //     this->rowsPerBlockCount.emplace_back(pageCounter);
+        //     pageCounter = 0;
+        // }
+
+        if (this->rowCount == 0)
+            return false;
+        // this->distinctValuesInColumns.clear();
+
+
+
+    }
+    return false;
 }
 
 /**
