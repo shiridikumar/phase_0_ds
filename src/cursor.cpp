@@ -2,7 +2,7 @@
 
 Cursor::Cursor(string tableName, int pageIndex)
 {
-    cout<<"cursor function"<<endl;
+    // cout<<"cursor function"<<endl;
     logger.log("Cursor::Cursor");
     this->page = bufferManager.getPage(tableName, pageIndex);
     this->pagePointer = 0;
@@ -25,17 +25,21 @@ vector<int> Cursor::getNext()
         vector<int> result;
         this->page.getRow(this->pagePointer,sep,result);
         while(result.size()<min(20,(int)tableCatalogue.getTable(this->tableName)->columnCount) && this->pagePointer<tableCatalogue.getTable(this->tableName)->rowCount){
+          
             int temp=this->pagePointer;
             tableCatalogue.getTable(this->tableName)->getNextPage(this);
             if(!(pagePointer)){
                 this->pagePointer=temp;
+                this->page.getRow(this->pagePointer,sep,result);
             }
             else{
                 break;
             }
+            if(this->pageIndex==tableCatalogue.getTable(this->tableName)->blockCount-1){
+                break;
+            }
         }
         this->pagePointer++;
-        cout<<this->pagePointer<<endl;
         return result;
         
     }

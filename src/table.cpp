@@ -68,11 +68,7 @@ bool Table::load()
         {
 
             if (this->blockify()){
-                cout<<"load done"<<endl;
                 return true;
-            }
-            else{
-                cout<<"load not doen"<<endl;
             }
         }
     }
@@ -144,7 +140,6 @@ bool Table::blockify()
     }
     if (!(parsedQuery.ismatrix))
     {
-        cout<<"this is table"<<endl;
         getline(fin, line);
         while (getline(fin, line))
         {
@@ -175,7 +170,6 @@ bool Table::blockify()
         }
 
         if (this->rowCount == 0){
-            cout<<"easda"<<endl;
              return false;
         }
            
@@ -204,7 +198,6 @@ bool Table::blockify()
                 ind++;
                 if (ind == maxElementsperblock)
                 {
-                    cout << "reached maximum elements in a block"<<endl;
                     bufferManager.writePage(this->tableName, this->blockCount, rowsInPage, pageCounter,sep,this->start);
                     this->start=sep.size();
                     ind = 0;
@@ -212,17 +205,16 @@ bool Table::blockify()
                     this->blockCount++;
                 }
             }
+            this->sep.push_back(ind);
 
             sep.push_back(ind);
             pageCounter++;
             this->updateStatistics(row);
         }
-        this->sep=sep;
         sep.push_back(-1);
+
         if (ind)
         {
-
-            cout << "didnt maximum elements in a block"<<endl;
             bufferManager.writePage(this->tableName, this->blockCount, rowsInPage, pageCounter,sep,this->start);
             ind = 0;
             pageCounter = 0;
@@ -230,9 +222,9 @@ bool Table::blockify()
         }
 
         if (this->rowCount == 0){
-            cout<<"row count not updated"<<endl;
             return false;
         }
+        
         // return false;
         // this->distinctValuesInColumns.clear();
     }
@@ -314,31 +306,24 @@ void Table::renameColumn(string fromColumnName, string toColumnName)
 void Table::print()
 {
     logger.log("Table::print");
-
-    if(parsedQuery.ismatrix){
-        cout<<"Matrix print statement";
-    }
     uint count = min((long long)PRINT_COUNT, this->rowCount);
 
     // // print headings
-    cout<<this->tableName<<endl;
     Cursor cursor(this->tableName, 0);
     vector<int> row;
     if(parsedQuery.ismatrix){
         for (int rowCounter = 0; rowCounter < count; rowCounter++)
         {
-            cout<<"Row print ***"<<endl;
             row = cursor.getNext();
-            cout<<"Row fetched "<<rowCounter<<endl;
             this->writeRow(row, cout);
         }
     }
     else{
-        // this->writeRow(this->columns, cout);
+        this->writeRow(this->columns, cout);
         for (int rowCounter = 0; rowCounter < count; rowCounter++)
         {
-            // row = cursor.getNext();
-            // this->writeRow(row, cout);
+            row = cursor.getNext();
+            this->writeRow(row, cout);
         }
     }
     printRowCount(this->rowCount);

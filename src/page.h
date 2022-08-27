@@ -13,7 +13,7 @@
 class Page{
 
     string tableName;
-    string pageIndex;
+    int pageIndex;
     int columnCount;
     int rowCount;
     int start;

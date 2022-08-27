@@ -38,7 +38,7 @@ Page::Page(string tableName, int pageIndex)
     this->rows.assign(maxRowCount, row);
 
     ifstream fin(pageName, ios::in);
-    cout<<pageName<<endl;
+    // cout<<pageName<<endl;
     if(parsedQuery.ismatrix){
         int number;
         vector<int> row(table.maxElementsperblock, 0);
@@ -77,8 +77,13 @@ vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
     logger.log("Page::getRow");
     // vector<int> result;
     // result.clear();
-    if (rowIndex >= this->rowCount)
+    if (rowIndex >= tableCatalogue.getTable(this->tableName)->rowCount){
+       
         return result;
+    }
+    if((rowIndex)*columnCount>=(this->pageIndex+1)*tableCatalogue.getTable(this->tableName)->maxElementsperblock){
+        return result;
+    }
     int ind;
     if(rowIndex==0){
         ind=0;
@@ -138,7 +143,7 @@ void Page::writePage()
     ofstream fout(this->pageName, ios::trunc);
     if(parsedQuery.ismatrix){
        
-        cout<<"matrix page "<<this->pageName<<endl;
+        // cout<<"matrix page "<<this->pageName<<endl;
         for (int columnCounter = 0; columnCounter < this->columnCount; columnCounter++)
         {
            
@@ -146,12 +151,11 @@ void Page::writePage()
                 if(columnCounter!=0){
                     fout << endl;
                 }
-                cout<<this->start<<" "<<sep.size()<<endl;
+                // cout<<this->start<<" "<<sep.size()<<endl;
                 this->start++;
             }
-            
             if(sep.size()>this->start && sep[this->start]==-1){
-                cout<<"end seperator"<<endl;
+                // cout<<"end seperator"<<endl;
                 break;
             }
             
@@ -174,6 +178,6 @@ void Page::writePage()
         }
     }
     fout.close();
-    cout<<"all done"<<endl;
+    // cout<<"all done"<<endl;
 
 }
