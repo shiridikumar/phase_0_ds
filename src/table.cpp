@@ -64,8 +64,13 @@ bool Table::load()
         if (this->extractColumnNames(line))
         {
 
-            if (this->blockify())
+            if (this->blockify()){
+                cout<<"load done"<<endl;
                 return true;
+            }
+            else{
+                cout<<"load not doen"<<endl;
+            }
         }
     }
     fin.close();
@@ -207,7 +212,7 @@ bool Table::blockify()
 
             sep.push_back(ind);
             pageCounter++;
-            // this->updateStatistics(row);
+            this->updateStatistics(row);
         }
         sep.push_back(-1);
         if (ind)
@@ -220,8 +225,11 @@ bool Table::blockify()
             this->blockCount++;
         }
 
-        if (this->rowCount == 0)
+        if (this->rowCount == 0){
+            cout<<"row count not updated"<<endl;
             return false;
+        }
+        // return false;
         // this->distinctValuesInColumns.clear();
     }
     return true;
@@ -238,6 +246,9 @@ bool Table::blockify()
 void Table::updateStatistics(vector<int> row)
 {
     this->rowCount++;
+    if(parsedQuery.ismatrix){
+        return;
+    }
     for (int columnCounter = 0; columnCounter < this->columnCount; columnCounter++)
     {
         if (!this->distinctValuesInColumns[columnCounter].count(row[columnCounter]))
@@ -299,6 +310,10 @@ void Table::renameColumn(string fromColumnName, string toColumnName)
 void Table::print()
 {
     logger.log("Table::print");
+
+    if(parsedQuery.ismatrix){
+        cout<<"Matrix print statement";
+    }
     uint count = min((long long)PRINT_COUNT, this->rowCount);
 
     // print headings

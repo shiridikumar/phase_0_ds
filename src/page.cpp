@@ -117,7 +117,7 @@ void Page::writePage()
                 break;
             }
             
-            fout << this->rows[0][columnCounter];
+            fout << this->rows[0][columnCounter]<<" " ;
            
         }
 

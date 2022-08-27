@@ -6,14 +6,26 @@
 bool syntacticParsePRINT()
 {
     logger.log("syntacticParsePRINT");
-    if (tokenizedQuery.size() != 2)
+    if ((tokenizedQuery.size() == 2 && tokenizedQuery[1]!="MATRIX") || (tokenizedQuery.size()==3 && tokenizedQuery[1]=="MATRIX"))
     {
+        if(tokenizedQuery[1]=="MATRIX"){
+            parsedQuery.ismatrix=true;
+            parsedQuery.printRelationName = tokenizedQuery[2];
+
+        }
+        else{
+            parsedQuery.ismatrix=false;
+            parsedQuery.printRelationName = tokenizedQuery[1];
+        }
+        parsedQuery.queryType = PRINT;
+        return true;
+       
+    }
+    else{
         cout << "SYNTAX ERROR" << endl;
         return false;
+
     }
-    parsedQuery.queryType = PRINT;
-    parsedQuery.printRelationName = tokenizedQuery[1];
-    return true;
 }
 
 bool semanticParsePRINT()
