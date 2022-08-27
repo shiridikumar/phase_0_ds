@@ -61,6 +61,40 @@ TableCatalogue::~insertTable
 ParseQuery::clear
 
 Reading New Command: 
+PRINT MATRIX E
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+TableCatalogue::isTable
+executePRINT
+TableCatalogue::getTable
+Table::print
+Cursor::Cursor
+BufferManager::getPage
+BufferManager::inPool
+BufferManager::insertIntoPool
+Page::Page
+TableCatalogue::getTable
+Cursor::geNext
+TableCatalogue::getTable
+Page::getRow
+TableCatalogue::getTable
+Table::printRow
+Cursor::geNext
+TableCatalogue::getTable
+Page::getRow
+TableCatalogue::getTable
+Table::printRow
+Cursor::geNext
+TableCatalogue::getTable
+Page::getRow
+TableCatalogue::getTable
+Table::printRow
+ParseQuery::clear
+
+Reading New Command: 
 
 TableCatalogue::~TableCatalogue
 Table::~unload

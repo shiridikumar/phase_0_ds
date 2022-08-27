@@ -56,6 +56,9 @@ bool Table::load()
     logger.log("Table::load");
     fstream fin(this->sourceFileName, ios::in);
     string line;
+    if(parsedQuery.ismatrix){
+        this->ismatrix=true;
+    }
     // cout<<"extracting column names for matrix";
     if (getline(fin, line))
     {
@@ -214,6 +217,7 @@ bool Table::blockify()
             pageCounter++;
             this->updateStatistics(row);
         }
+        this->sep=sep;
         sep.push_back(-1);
         if (ind)
         {
@@ -316,15 +320,26 @@ void Table::print()
     }
     uint count = min((long long)PRINT_COUNT, this->rowCount);
 
-    // print headings
-    this->writeRow(this->columns, cout);
-
+    // // print headings
+    cout<<this->tableName<<endl;
     Cursor cursor(this->tableName, 0);
     vector<int> row;
-    for (int rowCounter = 0; rowCounter < count; rowCounter++)
-    {
-        row = cursor.getNext();
-        this->writeRow(row, cout);
+    if(parsedQuery.ismatrix){
+        for (int rowCounter = 0; rowCounter < count; rowCounter++)
+        {
+            cout<<"Row print ***"<<endl;
+            row = cursor.getNext();
+            cout<<"Row fetched "<<rowCounter<<endl;
+            this->writeRow(row, cout);
+        }
+    }
+    else{
+        // this->writeRow(this->columns, cout);
+        for (int rowCounter = 0; rowCounter < count; rowCounter++)
+        {
+            // row = cursor.getNext();
+            // this->writeRow(row, cout);
+        }
     }
     printRowCount(this->rowCount);
 }

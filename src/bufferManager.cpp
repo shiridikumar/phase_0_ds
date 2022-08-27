@@ -17,10 +17,13 @@ Page BufferManager::getPage(string tableName, int pageIndex)
 {
     logger.log("BufferManager::getPage");
     string pageName = "../data/temp/"+tableName + "_Page" + to_string(pageIndex);
-    if (this->inPool(pageName))
+    if (this->inPool(pageName)){
         return this->getFromPool(pageName);
+    }
     else
+    {
         return this->insertIntoPool(tableName, pageIndex);
+    }
 }
 
 /**

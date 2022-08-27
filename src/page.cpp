@@ -38,14 +38,28 @@ Page::Page(string tableName, int pageIndex)
     this->rows.assign(maxRowCount, row);
 
     ifstream fin(pageName, ios::in);
-    this->rowCount = table.rowsPerBlockCount[pageIndex];
-    int number;
-    for (uint rowCounter = 0; rowCounter < this->rowCount; rowCounter++)
-    {
-        for (int columnCounter = 0; columnCounter < columnCount; columnCounter++)
+    cout<<pageName<<endl;
+    if(parsedQuery.ismatrix){
+        int number;
+        vector<int> row(table.maxElementsperblock, 0);
+        this->rows.assign(1,row);
+        for(int ind=0;ind<table.maxElementsperblock;ind++){
+            fin>>number;
+            this->rows[0][ind]=number;
+        }
+
+    }
+    else{
+        this->rowCount = table.rowsPerBlockCount[pageIndex];
+        int number;
+
+        for (uint rowCounter = 0; rowCounter < this->rowCount; rowCounter++)
         {
-            fin >> number;
-            this->rows[rowCounter][columnCounter] = number;
+            for (int columnCounter = 0; columnCounter < columnCount; columnCounter++)
+            {
+                fin >> number;
+                this->rows[rowCounter][columnCounter] = number;
+            }
         }
     }
     fin.close();
@@ -57,6 +71,30 @@ Page::Page(string tableName, int pageIndex)
  * @param rowIndex 
  * @return vector<int> 
  */
+
+vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
+{
+    logger.log("Page::getRow");
+    // vector<int> result;
+    // result.clear();
+    if (rowIndex >= this->rowCount)
+        return result;
+    int ind;
+    if(rowIndex==0){
+        ind=0;
+    }
+    else{
+        ind=sep[rowIndex-1];
+    }
+    for(int i=ind;i<min(20,this->columnCount);i++){
+        if(i==this->rows[0].size()){
+            break;
+        }
+        result.push_back(this->rows[0][i]);
+    }
+    return result;
+}
+
 vector<int> Page::getRow(int rowIndex)
 {
     logger.log("Page::getRow");
