@@ -78,7 +78,6 @@ vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
     // vector<int> result;
     // result.clear();
     if (rowIndex >= tableCatalogue.getTable(this->tableName)->rowCount){
-       
         return result;
     }
     if((rowIndex)*columnCount>=(this->pageIndex+1)*tableCatalogue.getTable(this->tableName)->maxElementsperblock){
@@ -91,11 +90,11 @@ vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
     else{
         ind=sep[rowIndex-1];
     }
-    for(int i=ind;i<min(20,this->columnCount);i++){
-        if(i==this->rows[0].size()){
+    for(int i=0;i<min(20,this->columnCount);i++){
+        if(i+ind==this->rows[0].size()){
             break;
         }
-        result.push_back(this->rows[0][i]);
+        result.push_back(this->rows[0][i+ind]);
     }
     return result;
 }

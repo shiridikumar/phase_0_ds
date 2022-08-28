@@ -1,9 +1,14 @@
 import pandas as pd
-a=[[j for i in range(10000) ] for j in range(3-1)]
-df=pd.DataFrame(a)
-df.set_index(0,inplace=True)
-df.columns=[3 for i in range(9999)]
-df.to_csv("E.csv")
+def gen_matrix(n,m):
+    a=[[j for i in range(m) ] for j in range(n-1)]
+    df=pd.DataFrame(a)
+    df[0]=[0 for i in range(n-1)]
+    df.set_index(0,inplace=True)
+    
+    df.columns=[n for i in range(m-1)]
+    df.to_csv("E.csv")
+
+gen_matrix(23,1823)
 
 # def solution(ans,k):
 #     a=[]
