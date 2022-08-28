@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/shikhar/sem5/DS/phase-0-31'
+make: Leaving directory '/home/shikhar/sem5/DS/phase-0-31'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

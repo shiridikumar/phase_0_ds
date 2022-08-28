@@ -18,6 +18,7 @@ enum QueryType
     SELECTION,
     SORT,
     SOURCE,
+    CROSSTRANSPOSE,
     UNDETERMINED
 };
 
@@ -58,6 +59,8 @@ public:
     string crossResultRelationName = "";
     string crossFirstRelationName = "";
     string crossSecondRelationName = "";
+    string crossTransFirstMatrix="";
+    string crossTransSecondMatrix="";
 
     string distinctResultRelationName = "";
     string distinctRelationName = "";
@@ -121,6 +124,7 @@ bool syntacticParseRENAME();
 bool syntacticParseSELECTION();
 bool syntacticParseSORT();
 bool syntacticParseSOURCE();
+bool syntacticParseCROSSTRANSPOSE();
 
 bool isFileExists(string tableName);
 bool isQueryFile(string fileName);

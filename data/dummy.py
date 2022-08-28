@@ -6,9 +6,9 @@ def gen_matrix(n,m):
     df.set_index(0,inplace=True)
     
     df.columns=[n for i in range(m-1)]
-    df.to_csv("E.csv")
+    df.to_csv("G.csv")
 
-gen_matrix(23,1823)
+gen_matrix(10,1000)
 
 # def solution(ans,k):
 #     a=[]

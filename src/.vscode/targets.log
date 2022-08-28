@@ -1,0 +1,476 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Sat Aug 27 18:29:48 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+DESKTOP_SESSION = cinnamon
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_SESSION_CLASS = user
+# makefile (from 'Makefile', line 7)
+SRC := server.cpp page.cpp bufferManager.cpp executor.cpp tableCatalogue.cpp cursor.cpp clear.cpp logger.cpp semanticParser.cpp table.cpp syntacticParser.cpp
+# environment
+XDG_SESSION_TYPE = x11
+# environment
+GTK3_MODULES = xapp-gtk3-module
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /home/shikhar/.Xauthority
+# environment
+GDMSESSION = cinnamon
+# environment
+XMODIFIERS = @im=ibus
+# makefile
+CURDIR := /home/shikhar/sem5/DS/phase-0-31/src
+# makefile
+SHELL = /bin/sh
+# environment
+GDM_LANG = en_US
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/share/code/code
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-cinnamon:/etc/xdg
+# environment
+GTK_OVERLAY_SCROLLING = 1
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# 'override' directive
+GNUMAKEFLAGS := 
+# makefile (from 'Makefile', line 5)
+CXXFLAGS = -g -I .
+# environment
+MANDATORY_PATH = /usr/share/gconf/cinnamon.mandatory.path
+# environment
+XDG_DATA_DIRS = /usr/share/gnome:/usr/share/cinnamon:/home/shikhar/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# makefile (from 'Makefile', line 8)
+OBJS = $(SRC:.cpp=.o)
+# environment
+CLUTTER_IM_MODULE = ibus
+# environment
+VSCODE_CWD = /home/shikhar
+# environment
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+PATH = /home/shikhar/apache-maven-3.8.5/bin:/home/shikhar/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# environment
+GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+# environment
+SESSION_MANAGER = local/linuxmint:@/tmp/.ICE-unix/1181,unix/linuxmint:/tmp/.ICE-unix/1181
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# makefile (from 'Makefile', line 11)
+EXEC_SRC := ./executors/export.cpp ./executors/rename.cpp ./executors/selection.cpp ./executors/source.cpp ./executors/print.cpp ./executors/cross.cpp ./executors/index.cpp ./executors/join.cpp ./executors/list.cpp ./executors/load.cpp ./executors/sort.cpp ./executors/projection.cpp ./executors/distinct.cpp
+# environment
+ZDOTDIR = /home/shikhar/.config/zsh
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/shikhar
+# environment
+XDG_SESSION_DESKTOP = cinnamon
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 6059
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0
+# makefile (from 'Makefile', line 10)
+EXEC_DIR = ./executors
+# environment
+GTK_IM_MODULE = ibus
+# environment
+PWD = /home/shikhar/sem5/DS/phase-0-31/src
+# environment
+QT_QPA_PLATFORMTHEME = qt5ct
+# default
+.LOADED := 
+# environment
+XDG_SEAT = seat0
+# environment
+SSH_AGENT_PID = 1267
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/shikhar
+# environment
+VSCODE_CODE_CACHE_PATH = /home/shikhar/.config/Code/CachedData/e4503b30fc78200f846c62cf8091b76ff5547662
+# environment
+LOGNAME = shikhar
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# makefile (from 'Makefile', line 12)
+EXEC_OBJS = $(EXEC_SRC:.cpp=.o)
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+MAKE_VERSION := 4.2.1
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XDG_VTNR = 7
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = ibus
+# environment
+SHLVL = 0
+# environment
+COMPIZ_CONFIG_PROFILE = mint
+# environment
+XDG_SESSION_ID = c2
+# environment
+USER = shikhar
+# makefile
+.DEFAULT_GOAL := all
+# environment
+XDG_CURRENT_DESKTOP = X-Cinnamon
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := make
+# environment
+OLDPWD = /home/shikhar
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_IN:en
+# environment
+XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-5ae8dcf0-1.70.2-main.sock
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+GDK_BACKEND = x11
+# automatic
++F = $(notdir $+)
+# environment
+CINNAMON_VERSION = 5.2.7
+# environment
+QT_ACCESSIBILITY = 1
+# environment
+DEFAULTS_PATH = /usr/share/gconf/cinnamon.default.path
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# makefile (from 'Makefile', line 4)
+CXX = g++
+# environment
+LC_ALL = C
+# environment
+QT4_IM_MODULE = ibus
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# default
+.RECIPEPREFIX := 
+# environment
+LANG = C
+# environment
+VSCODE_PID = 6059
+# variable set hash-table stats:
+# Load=108/1024=11%, Rehash=0, Collisions=10/140=7%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 66313, inode 1598437): 40 files, no impossibilities.
+# ./executors (device 66313, inode 1598474): 28 files, no impossibilities.
+
+# 68 files, no impossibilities in 2 directories.
+
+# Implicit Rules
+
+%.o: %.cpp global.h
+
+executors/%.o: executors/.cpp global.h
+
+# 2 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+# Not a target:
+clear.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:07.04267866
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+table.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:02.686530935
+#  File has been updated.
+#  Successfully updated.
+
+all: server
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+syntacticParser.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:04.93060707
+#  File has been updated.
+#  Successfully updated.
+
+ 
+# Not a target:
+executors/export.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:35.695652237
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executor.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:30:50.970132225
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executors/projection.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:33.947588354
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-18 19:57:29.67400117
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+server.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:30:43.733884927
+#  File has been updated.
+#  Successfully updated.
+
+server: server.o page.o bufferManager.o executor.o tableCatalogue.o cursor.o clear.o logger.o semanticParser.o table.o syntacticParser.o executors/export.o executors/rename.o executors/selection.o executors/source.o executors/print.o executors/cross.o executors/index.o executors/join.o executors/list.o executors/load.o executors/sort.o executors/projection.o executors/distinct.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-08-25 02:31:36.079666263
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 20):
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) $(EXEC_OBJS)
+
+# Not a target:
+executors/print.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:16.122985711
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executors/source.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:14.686937228
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+logger.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:30:57.322348646
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+tableCatalogue.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:30:53.186207796
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executors/rename.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:09.058746935
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+bufferManager.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:30:48.894061358
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+executors/join.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:23.519234968
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executors/cross.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:18.967081649
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+page.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:30:46.549981263
+#  File has been updated.
+#  Successfully updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 23):
+	rm -f *.o *~
+	rm -f $(EXEC_DIR)/*.o $(EXEC_DIR)/*~
+	rm -f server
+	rm -f log
+
+# Not a target:
+executors/sort.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:31.615506971
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executors/index.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:29.85144778
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executors/list.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:25.323295654
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executors/selection.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:13.326891285
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executors/load.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:27.379364762
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+executors/distinct.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:31:20.791143118
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+semanticParser.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:30:59.382418703
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+cursor.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-25 02:30:55.218277028
+#  File has been updated.
+#  Successfully updated.
+
+# files hash-table stats:
+# Load=30/1024=3%, Rehash=0, Collisions=0/67=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 90 / storage = 1061 B / avg = 11 B
+# current buf: size = 8162 B / used = 1061 B / count = 90 / avg = 11 B
+
+# strcache performance: lookups = 115 / hit rate = 21%
+# hash-table stats:
+# Load=90/8192=1%, Rehash=0, Collisions=2/115=2%
+# Finished Make data base on Sat Aug 27 18:29:48 2022
+
+ 
