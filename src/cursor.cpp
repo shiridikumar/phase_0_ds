@@ -60,6 +60,12 @@ vector<int> Cursor::getNext()
     
 }
 
+vector<int> Cursor::getnextline()
+{
+          
+    
+}
+
 
 /**
  * @brief Function that loads Page indicated by pageIndex. Now the cursor starts

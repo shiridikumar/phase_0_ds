@@ -57,6 +57,12 @@ void executeCROSSTRANSPOSE() {
         pageindex.push_back(i*table2.columnCount/table2.maxElementsperblock);
         cout<<pageindex[pageindex.size()-1]<<" ";
     }
+    // Cursor cursor1(table1.tableName, 0);
+    Cursor cursor2(table2.tableName, 0);
+    for(int i=0;i<table2.rowCount;i++){
+        cursor2.getnextline();
+
+    }
     cout << "cross transpose" << endl;
     return;
 }
