@@ -99,6 +99,11 @@ vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
     return result;
 }
 
+vector<int> Page::getRowElement(int rowIndex,vector<int> sep){
+    
+
+}
+
 vector<int> Page::getRow(int rowIndex)
 {
     logger.log("Page::getRow");

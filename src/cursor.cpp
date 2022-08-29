@@ -60,8 +60,18 @@ vector<int> Cursor::getNext()
     
 }
 
-vector<int> Cursor::getnextline()
+vector<int> Cursor::getnextline(int i)
 {
+    string tname=this->tableName;
+    while(this->pageIndex!=tableCatalogue.getTable(tname)->pageindexes[i]){
+        tableCatalogue.getTable(tname)->getNextPage(this);
+    }
+    tableCatalogue.getTable(tname)->sep;
+    this->page.getRowElement(i,tableCatalogue.getTable(tname)->sep);
+    
+
+
+
           
     
 }
