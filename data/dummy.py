@@ -1,14 +1,13 @@
 import pandas as pd
 def gen_matrix(n,m):
-    a=[[j for i in range(m) ] for j in range(n-1)]
+    a=[[j*(m)+i for i in range(m) ] for j in range(n-1)]
     df=pd.DataFrame(a)
     df[0]=[0 for i in range(n-1)]
     df.set_index(0,inplace=True)
-    
     df.columns=[n for i in range(m-1)]
-    df.to_csv("G.csv")
+    df.to_csv("F.csv")
 
-gen_matrix(10,1000)
+gen_matrix(500,500)
 
 # def solution(ans,k):
 #     a=[]

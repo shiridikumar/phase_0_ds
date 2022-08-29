@@ -99,9 +99,11 @@ vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
     return result;
 }
 
-vector<int> Page::getRowElement(int rowIndex,vector<int> sep){
-    
+int Page::getRowElement(int rowIndex,int columnindex,vector<int> sep)
+{
 
+    // cout<<this->rows[0][columnindex]<<endl;
+    return  this->rows[0][columnindex];
 }
 
 vector<int> Page::getRow(int rowIndex)
