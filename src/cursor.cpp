@@ -2,7 +2,7 @@
 
 Cursor::Cursor(string tableName, int pageIndex)
 {
-    // cout<<"cursor function"<<endl;
+    // //<<"cursor function"<<endl;
     logger.log("Cursor::Cursor");
     this->page = bufferManager.getPage(tableName, pageIndex);
     this->pagePointer = 0;
@@ -28,7 +28,8 @@ vector<int> Cursor::getNext()
 
         int limit = (int)tableCatalogue.getTable(this->tableName)->columnCount;
 
-        if(parsedQuery.queryType == PRINT) limit = min(20, limit);
+        if (parsedQuery.queryType == PRINT)
+            limit = min(20, limit);
 
         while (result.size() < limit && this->pagePointer < tableCatalogue.getTable(this->tableName)->rowCount)
         {
@@ -69,52 +70,76 @@ vector<int> Cursor::getNext()
     }
 }
 
-void Cursor::transposeLine(int row){
-    string tname= this->tableName;
-    int pageindex =((row*tableCatalogue.getTable(tname)->columnCount))/(tableCatalogue.getTable(tname)->maxElementsperblock);
-    vector<int> sep = tableCatalogue.getTable(tname)->sep;
-    Table table2 = *(tableCatalogue.getTable(parsedQuery.crossTransSecondMatrix));
-    int done=0;
-   
-    int start=(row==0)?0:sep[row-1];
-    int st=(row==0)?0:sep[row-1];
-    int end=min(start+tableCatalogue.getTable(tname)->columnCount,tableCatalogue.getTable(tname)->maxElementsperblock);
-    pageindex =((row*tableCatalogue.getTable(tname)->columnCount))/(tableCatalogue.getTable(tname)->maxElementsperblock);
-    Cursor cursor2(table2.tableName, 0);
-    while(done!=tableCatalogue.getTable(tname)->columnCount){
-        vector<int> res;
-        while(this->pageIndex!=pageindex){
-             tableCatalogue.getTable(tname)->getNextPage(this);
-        }
-        // cout<<"element "<<row<<" "<<start<<" "<<end<<" "<<pageindex<<endl;
-        cursor2.getnextline(row,done,done+(end-start),pageindex);
-        this->page.getelementsRange(row,start,end,res);
-        done+=(end-start);
-        start=0;
-        end=min(tableCatalogue.getTable(tname)->columnCount-done,tableCatalogue.getTable(tname)->maxElementsperblock-done);
-        // cout<<"element "<<row<<" "<<start<<" "<<end<<" "<<pageindex<<endl;
-        if(pageindex<tableCatalogue.getTable(tname)->blockCount-1){
-            pageindex+=1;
-        }
-        else{
-            break;
-        }
-    }
-
-
-
-}
-
-
-vector<int> Cursor::getnextline( int j, int start,int end,int pageindex)
+void Cursor::transposeLine(int row)
 {
     string tname = this->tableName;
-    vector<int> ans(tableCatalogue.getTable(tname)->rowCount,0);
+    vector<int> res;
+    int ind = 0;
+    ofstream fout2(parsedQuery.crossTransSecondMatrix, ios::out);
+    vector<int> sep = tableCatalogue.getTable(tname)->sep;
+    for (int row = 0; row < tableCatalogue.getTable(tname)->rowCount; row++)
+    {
+        int pageindex = ((row * tableCatalogue.getTable(tname)->columnCount)) / (tableCatalogue.getTable(tname)->maxElementsperblock);
+        Table table2 = *(tableCatalogue.getTable(parsedQuery.crossTransSecondMatrix));
+        int done = 0;
+        int start = (row == 0) ? 0 : sep[row - 1];
+        int st = (row == 0) ? 0 : sep[row - 1];
+        int end = min(start + tableCatalogue.getTable(tname)->columnCount, tableCatalogue.getTable(tname)->maxElementsperblock);
+        pageindex = ((row * tableCatalogue.getTable(tname)->columnCount)) / (tableCatalogue.getTable(tname)->maxElementsperblock);
+        Cursor cursor2(table2.tableName, 0);
+        while (done != tableCatalogue.getTable(tname)->columnCount)
+        {
+            while (this->pageIndex != pageindex)
+            {
+                ofstream fout1(this->page.pageName, ios::trunc);
+                for (int i = 0; i < res.size(); i++)
+                {
+                    if (res[i] == sep[ind])
+                    {
+                        fout1 << endl;
+                    }
+                    fout1 << res[i] << " ";
+                }
+                fout1.close();
+
+                res.clear();
+                tableCatalogue.getTable(tname)->getNextPage(this);
+            }
+            cursor2.getnextline(row, done, done + (end - start), pageindex, res);
+            done += (end - start);
+            start = 0;
+            end = min(tableCatalogue.getTable(tname)->columnCount - done, tableCatalogue.getTable(tname)->maxElementsperblock - done);
+            if (pageindex < tableCatalogue.getTable(tname)->blockCount - 1)
+            {
+                pageindex += 1;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    ofstream fout1(this->page.pageName, ios::trunc);
+    for (int i = 0; i < res.size(); i++)
+    {
+        if (res[i] == sep[ind])
+        {
+            fout1 << endl;
+        }
+        fout1 << res[i] << " ";
+    }
+    fout1.close();
+}
+
+vector<int> Cursor::getnextline(int j, int start, int end, int pageindex, vector<int> &res)
+{
+    string tname = this->tableName;
+    vector<int> ans(tableCatalogue.getTable(tname)->rowCount, 0);
     int ind;
     vector<int> sep = tableCatalogue.getTable(tname)->sep;
     for (int i = start; i < end; i++)
     {
-        pageindex =((i*tableCatalogue.getTable(tname)->columnCount))/(tableCatalogue.getTable(tname)->maxElementsperblock);
+        pageindex = ((i * tableCatalogue.getTable(tname)->columnCount)) / (tableCatalogue.getTable(tname)->maxElementsperblock);
         if (i == 0)
         {
             ind = 0;
@@ -123,19 +148,16 @@ vector<int> Cursor::getnextline( int j, int start,int end,int pageindex)
         {
             ind = sep[i - 1];
         }
-        //  cout<<i<<" "<<pageindex<<" "<<this->pageIndex<<endl;
         int additional = j / tableCatalogue.getTable(tname)->maxElementsperblock;
         int rem = (ind + j) % tableCatalogue.getTable(tname)->maxElementsperblock;
         pageindex += additional;
-       
-        j = rem;
-        // cout<<i<<" "<<pageindex<<" "<<this->pageIndex<<endl;
+
         while (this->pageIndex != pageindex)
         {
             tableCatalogue.getTable(tname)->getNextPage(this);
         }
         tableCatalogue.getTable(tname)->sep;
-        ans[i]=this->page.getRowElement(i, j, tableCatalogue.getTable(tname)->sep);
+        res.push_back(this->page.getRowElement(i, rem, tableCatalogue.getTable(tname)->sep));
     }
     return ans;
 }

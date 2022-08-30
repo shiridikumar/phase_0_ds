@@ -108,8 +108,6 @@ vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
 
 int Page::getRowElement(int rowIndex,int columnindex,vector<int> sep)
 {
-
-    // cout<<this->rows[0][columnindex]<<endl;
     return  this->rows[0][columnindex];
 }
 
@@ -117,10 +115,8 @@ int Page::getRowElement(int rowIndex,int columnindex,vector<int> sep)
 void Page::getelementsRange(int rowIndex,int start,int end,vector<int>& res)
 {
     for(int i=start;i< end;i++){
-        cout<<this->rows[0][i]<<" ";
         res.push_back(this->rows[0][i]);
     }
-    cout<<endl;
 }
 vector<int> Page::getRow(int rowIndex)
 {
@@ -141,6 +137,7 @@ Page::Page(string tableName, int pageIndex, vector<vector<int>> rows, int rowCou
     this->columnCount = rows[0].size();
     this->pageName = "../data/temp/"+this->tableName + "_Page" + to_string(pageIndex);
 }
+
 
 Page::Page(string tableName, int pageIndex, vector<vector<int>> rows, int rowCount ,vector<int> sep,int start)
 {

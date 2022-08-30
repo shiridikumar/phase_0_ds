@@ -15,7 +15,7 @@ class Cursor{
     public:
     Cursor(string tableName, int pageIndex);
     vector<int> getNext();
-    vector<int> getnextline(int j,int start,int end,int pageindex);
+    vector<int> getnextline(int j,int start,int end,int pageindex,vector<int>& res);
     void transposeLine(int i);
     void nextPage(int pageIndex);
 };

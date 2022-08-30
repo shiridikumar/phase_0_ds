@@ -5,9 +5,9 @@ def gen_matrix(n,m):
     df[0]=[0 for i in range(n-1)]
     df.set_index(0,inplace=True)
     df.columns=[n for i in range(m-1)]
-    df.to_csv("F.csv")
+    df.to_csv("I.csv")
 
-gen_matrix(500,500)
+gen_matrix(100,100)
 
 # def solution(ans,k):
 #     a=[]

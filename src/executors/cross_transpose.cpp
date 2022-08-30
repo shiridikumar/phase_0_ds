@@ -59,12 +59,8 @@ void executeCROSSTRANSPOSE() {
     }
     int curr=0;
     int ind=0;
-    for(int j=0;j<2;j++){
-        Cursor cursor1(table1.tableName, 0);
-        cursor1.transposeLine(j);
-        // Cursor cursor2(table2.tableName, 0);
-        // cursor2.getnextline(j,ind);
-    }
+    Cursor cursor1(table1.tableName, 0);
+    cursor1.transposeLine(0);
     cout << "cross transpose" << endl;
     return;
 }
