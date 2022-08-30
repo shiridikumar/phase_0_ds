@@ -75,8 +75,7 @@ Page::Page(string tableName, int pageIndex)
 vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
 {
     logger.log("Page::getRow");
-    // vector<int> result;
-    // result.clear();
+    int init=result.size();
     if (rowIndex >= tableCatalogue.getTable(this->tableName)->rowCount){
         return result;
     }
@@ -84,13 +83,14 @@ vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
         return result;
     }
     int ind;
-    if(rowIndex==0){
+    if(rowIndex==0 || result.size()!=0){
         ind=0;
     }
     else{
         ind=sep[rowIndex-1];
     }
-    for(int i=0;i<min(20,this->columnCount);i++){
+    // cout<<init<<" "<<ind<<"************"<<endl;
+    for(int i=0;i<this->columnCount-init;i++){
         if(i+ind==this->rows[0].size()){
             break;
         }
@@ -107,14 +107,13 @@ int Page::getRowElement(int rowIndex,int columnindex,vector<int> sep)
 }
 
 
-vector<int> Page::getelementsRange(int rowIndex,int start,int end)
+void Page::getelementsRange(int rowIndex,int start,int end,vector<int>& res)
 {
-    vector<int> empty;
     for(int i=start;i< end;i++){
         cout<<this->rows[0][i]<<" ";
+        res.push_back(this->rows[0][i]);
     }
     cout<<endl;
-    return empty;
 }
 vector<int> Page::getRow(int rowIndex)
 {

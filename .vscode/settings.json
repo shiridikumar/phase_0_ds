@@ -13,6 +13,8 @@
         "utility": "cpp",
         "valarray": "cpp",
         "cmath": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "any": "cpp",
+        "type_traits": "cpp"
     }
 }

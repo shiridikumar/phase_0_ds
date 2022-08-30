@@ -306,7 +306,7 @@ void Table::renameColumn(string fromColumnName, string toColumnName)
 void Table::print()
 {
     logger.log("Table::print");
-    uint count = min((long long)PRINT_COUNT, this->rowCount);
+    uint count = min((long long)2, this->rowCount);
 
     // // print headings
     Cursor cursor(this->tableName, 0);

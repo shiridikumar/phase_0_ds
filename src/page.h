@@ -31,6 +31,6 @@ class Page{
     vector<int> getRow(int rowIndex);
     int getRowElement(int rowIndex,int j,vector<int> sep);
     vector<int> getRow(int rowIndex, vector<int> sep,vector<int> & result);
-    vector<int> getelementsRange(int row,int start,int end);
+    void getelementsRange(int row,int start,int end,vector<int>& res);
     void writePage();
 };

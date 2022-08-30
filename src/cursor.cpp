@@ -25,9 +25,9 @@ vector<int> Cursor::getNext()
         vector<int> sep = tableCatalogue.getTable(this->tableName)->sep;
         vector<int> result;
         this->page.getRow(this->pagePointer, sep, result);
-        while (result.size() < min(20, (int)tableCatalogue.getTable(this->tableName)->columnCount) && this->pagePointer < tableCatalogue.getTable(this->tableName)->rowCount)
+        // cout<<this->pageIndex<<" "<<result.size()<<" "<<pagePointer<<endl;
+        while (result.size() < ((int)tableCatalogue.getTable(this->tableName)->columnCount) && this->pagePointer < tableCatalogue.getTable(this->tableName)->rowCount)
         {
-
             int temp = this->pagePointer;
             tableCatalogue.getTable(this->tableName)->getNextPage(this);
             if (!(pagePointer))
@@ -71,21 +71,24 @@ void Cursor::transposeLine(int row){
     vector<int> sep = tableCatalogue.getTable(tname)->sep;
     Table table2 = *(tableCatalogue.getTable(parsedQuery.crossTransSecondMatrix));
     int done=0;
-
+   
     int start=(row==0)?0:sep[row-1];
+    int st=(row==0)?0:sep[row-1];
     int end=min(start+tableCatalogue.getTable(tname)->columnCount,tableCatalogue.getTable(tname)->maxElementsperblock);
     pageindex =((row*tableCatalogue.getTable(tname)->columnCount))/(tableCatalogue.getTable(tname)->maxElementsperblock);
     Cursor cursor2(table2.tableName, 0);
     while(done!=tableCatalogue.getTable(tname)->columnCount){
+        vector<int> res;
         while(this->pageIndex!=pageindex){
              tableCatalogue.getTable(tname)->getNextPage(this);
         }
-        cout<<"element "<<row<<" "<<start<<" "<<end<<" "<<pageindex<<endl;
-        cursor2.getnextline(row,start,end,pageindex);
-        // this->page.getelementsRange(row,start,end);
+        // cout<<"element "<<row<<" "<<start<<" "<<end<<" "<<pageindex<<endl;
+        cursor2.getnextline(row,done,done+(end-start),pageindex);
+        this->page.getelementsRange(row,start,end,res);
         done+=(end-start);
         start=0;
         end=min(tableCatalogue.getTable(tname)->columnCount-done,tableCatalogue.getTable(tname)->maxElementsperblock-done);
+        // cout<<"element "<<row<<" "<<start<<" "<<end<<" "<<pageindex<<endl;
         if(pageindex<tableCatalogue.getTable(tname)->blockCount-1){
             pageindex+=1;
         }
@@ -97,6 +100,7 @@ void Cursor::transposeLine(int row){
 
 
 }
+
 
 vector<int> Cursor::getnextline( int j, int start,int end,int pageindex)
 {
@@ -115,7 +119,7 @@ vector<int> Cursor::getnextline( int j, int start,int end,int pageindex)
         {
             ind = sep[i - 1];
         }
-         cout<<i<<" "<<pageindex<<" "<<this->pageIndex<<endl;
+        //  cout<<i<<" "<<pageindex<<" "<<this->pageIndex<<endl;
         int additional = j / tableCatalogue.getTable(tname)->maxElementsperblock;
         int rem = (ind + j) % tableCatalogue.getTable(tname)->maxElementsperblock;
         pageindex += additional;
