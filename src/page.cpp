@@ -83,14 +83,21 @@ vector<int> Page::getRow(int rowIndex,vector<int> sep,vector<int> & result)
         return result;
     }
     int ind;
-    if(rowIndex==0 || result.size()!=0){
+    if(rowIndex==0 || result.size() != 0){
         ind=0;
     }
     else{
         ind=sep[rowIndex-1];
     }
-    // cout<<init<<" "<<ind<<"************"<<endl;
-    for(int i=0;i<this->columnCount-init;i++){
+
+    int count = this->columnCount;
+
+    if(parsedQuery.queryType == PRINT) count = min(20, count);
+
+    count -= init; 
+
+    for(int i=0;i<count;i++){
+        
         if(i+ind==this->rows[0].size()){
             break;
         }

@@ -8,14 +8,24 @@
 bool syntacticParseEXPORT()
 {
     logger.log("syntacticParseEXPORT");
-    if (tokenizedQuery.size() != 2)
+    if ((tokenizedQuery.size() == 2 && tokenizedQuery[1]!="MATRIX") || (tokenizedQuery.size()==3 && tokenizedQuery[1]=="MATRIX")){
+        parsedQuery.queryType = EXPORT;
+
+        if(tokenizedQuery[1]=="MATRIX"){
+            parsedQuery.ismatrix = true;
+             parsedQuery.exportRelationName = tokenizedQuery[2];
+        }
+        else{
+            parsedQuery.ismatrix = false;
+            parsedQuery.exportRelationName = tokenizedQuery[1];
+        }
+        return true;
+    }
+    else
     {
         cout << "SYNTAX ERROR" << endl;
         return false;
     }
-    parsedQuery.queryType = EXPORT;
-    parsedQuery.exportRelationName = tokenizedQuery[1];
-    return true;
 }
 
 bool semanticParseEXPORT()

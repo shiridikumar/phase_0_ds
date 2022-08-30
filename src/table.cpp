@@ -306,7 +306,7 @@ void Table::renameColumn(string fromColumnName, string toColumnName)
 void Table::print()
 {
     logger.log("Table::print");
-    uint count = min((long long)2, this->rowCount);
+    uint count = min((long long)20, this->rowCount);
 
     // // print headings
     Cursor cursor(this->tableName, 0);
@@ -353,14 +353,15 @@ void Table::getNextPage(Cursor *cursor)
  */
 void Table::makePermanent()
 {
-    logger.log("Table::makePermanent");
+    logger.log("Table::makePermanent");    
     if (!this->isPermanent())
         bufferManager.deleteFile(this->sourceFileName);
     string newSourceFile = "../data/" + this->tableName + ".csv";
     ofstream fout(newSourceFile, ios::out);
 
-    // print headings
-    this->writeRow(this->columns, fout);
+
+    if(!parsedQuery.ismatrix) // print headings
+        this->writeRow(this->columns, fout);
 
     Cursor cursor(this->tableName, 0);
     vector<int> row;

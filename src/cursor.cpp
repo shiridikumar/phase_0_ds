@@ -25,8 +25,12 @@ vector<int> Cursor::getNext()
         vector<int> sep = tableCatalogue.getTable(this->tableName)->sep;
         vector<int> result;
         this->page.getRow(this->pagePointer, sep, result);
-        // cout<<this->pageIndex<<" "<<result.size()<<" "<<pagePointer<<endl;
-        while (result.size() < ((int)tableCatalogue.getTable(this->tableName)->columnCount) && this->pagePointer < tableCatalogue.getTable(this->tableName)->rowCount)
+
+        int limit = (int)tableCatalogue.getTable(this->tableName)->columnCount;
+
+        if(parsedQuery.queryType == PRINT) limit = min(20, limit);
+
+        while (result.size() < limit && this->pagePointer < tableCatalogue.getTable(this->tableName)->rowCount)
         {
             int temp = this->pagePointer;
             tableCatalogue.getTable(this->tableName)->getNextPage(this);
