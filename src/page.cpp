@@ -106,6 +106,16 @@ int Page::getRowElement(int rowIndex,int columnindex,vector<int> sep)
     return  this->rows[0][columnindex];
 }
 
+
+vector<int> Page::getelementsRange(int rowIndex,int start,int end)
+{
+    vector<int> empty;
+    for(int i=start;i< end;i++){
+        cout<<this->rows[0][i]<<" ";
+    }
+    cout<<endl;
+    return empty;
+}
 vector<int> Page::getRow(int rowIndex)
 {
     logger.log("Page::getRow");
