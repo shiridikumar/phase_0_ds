@@ -11,9 +11,6 @@ bool syntacticParseCROSSTRANSPOSE() {
         cout << "SYNTAX ERROR" << endl;
         return false;
     }
-    else{
-        cout<<"syantactic done"<<endl;
-    }
     parsedQuery.ismatrix=true;
     parsedQuery.queryType = CROSSTRANSPOSE;
     parsedQuery.crossTransFirstMatrix = tokenizedQuery[1];
@@ -38,8 +35,6 @@ bool semanticParseCROSSTRANSPOSE() {
         cout << "SEMANTIC ERROR: Cross Transpose Relations don't have same dimensions" << endl;
         return false;
     }
-
-    cout<<"semantic done"<<endl;
     return true;
 }
 
@@ -56,6 +51,12 @@ void executeCROSSTRANSPOSE() {
     for(int i=0;i<table2.rowCount;i++){
         pageindex.push_back(i*table2.columnCount/table2.maxElementsperblock);
         // cout<<pageindex[pageindex.size()-1]<<" ";
+    }
+    if(parsedQuery.crossTransFirstMatrix==parsedQuery.crossTransSecondMatrix){
+         Table *tablenew = new Table(parsedQuery.crossTransSecondMatrix);
+         tablenew->tableName=parsedQuery.crossTransFirstMatrix+"_dup";
+          tableCatalogue.insertTable(tablenew);
+         tablenew->load();
     }
     int curr=0;
     int ind=0;

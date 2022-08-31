@@ -1,7 +1,7 @@
 import numpy as np
 
 def check_cross_transpose(matrix1, matrix2, output1, output2):
-    if (matrix1.transpose() == output2).all():
+    if (matrix1.transpose() == output2).all() and  (matrix2.transpose() == output1).all():
         return True
     return False
 
@@ -10,7 +10,7 @@ array1 = np.loadtxt(open("H1.csv"), delimiter=",")
 array2 = np.loadtxt(open("I1.csv"), delimiter=",")
 
 output1 = np.loadtxt(open("H.csv"), delimiter=",")
-output2 = np.loadtxt(open("H.csv"), delimiter=",")
+output2 = np.loadtxt(open("I.csv"), delimiter=",")
 
 print(check_cross_transpose(array1, array2, output1, output2))
 for i in range(len(array1)):

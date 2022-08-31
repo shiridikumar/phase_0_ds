@@ -63,11 +63,13 @@ bool Table::load()
     if (getline(fin, line))
     {
         fin.close();
+       
 
         if (this->extractColumnNames(line))
         {
-
+                
             if (this->blockify()){
+
                 return true;
             }
         }

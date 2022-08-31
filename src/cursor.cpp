@@ -78,7 +78,8 @@ void Cursor::transposeLine(int row)
     int ind = 0;
     ofstream fout2(parsedQuery.crossTransSecondMatrix, ios::out);
     vector<int> sep = tableCatalogue.getTable(tname)->sep;
-    Table table2 = *(tableCatalogue.getTable(parsedQuery.crossTransSecondMatrix));
+    string tail=(parsedQuery.crossTransFirstMatrix==parsedQuery.crossTransSecondMatrix)?"_dup":"";
+    Table table2 = *(tableCatalogue.getTable(parsedQuery.crossTransSecondMatrix+tail));
     Cursor cursor2(table2.tableName, 0);
     Cursor cursor3(table2.tableName, 0);
     for (int row = 0; row < tableCatalogue.getTable(tname)->rowCount; row++)
@@ -116,11 +117,11 @@ void Cursor::transposeLine(int row)
                 res.clear();
                 tableCatalogue.getTable(tname)->getNextPage(this);
             }
-
             cursor2.getnextline(row, done, done + (end - start), pageindex, res,0);
             this->page.getelementsRange(row, start, end,res1);
-            
+            // if(parsedQuery.crossTransFirstMatrix!=parsedQuery.crossTransSecondMatrix){
             cursor3.getnextline(row, done, done + (end - start), pageindex, res1,1);
+            // }
             
             res1.clear();
             done += (end - start);
