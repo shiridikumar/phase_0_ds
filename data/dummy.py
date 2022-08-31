@@ -1,13 +1,20 @@
 import pandas as pd
+import numpy as np
 def gen_matrix(n,m):
-    a=[[j*(m)+i for i in range(m) ] for j in range(n-1)]
+    # a=[[j*(m)+i for i in range(m) ] for j in range(n-1)]
+    # df=pd.DataFrame(a)
+    # df[0]=[0 for i in range(n-1)]
+    # df.set_index(0,inplace=True)
+    # df.columns=[n for i in range(m-1)]
+    # df.to_csv("I.csv")
+    import numpy as np
+    a=np.random.randint(0, high=5000, size=(n-1,m))
     df=pd.DataFrame(a)
-    df[0]=[0 for i in range(n-1)]
     df.set_index(0,inplace=True)
     df.columns=[n for i in range(m-1)]
     df.to_csv("I.csv")
 
-gen_matrix(100,100)
+gen_matrix(11,11)
 
 # def solution(ans,k):
 #     a=[]

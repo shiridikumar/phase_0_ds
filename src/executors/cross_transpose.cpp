@@ -55,7 +55,7 @@ void executeCROSSTRANSPOSE() {
     vector<int> pageindex;
     for(int i=0;i<table2.rowCount;i++){
         pageindex.push_back(i*table2.columnCount/table2.maxElementsperblock);
-        cout<<pageindex[pageindex.size()-1]<<" ";
+        // cout<<pageindex[pageindex.size()-1]<<" ";
     }
     int curr=0;
     int ind=0;

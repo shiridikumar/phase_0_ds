@@ -30,6 +30,7 @@ class BufferManager{
     public:
     
     BufferManager();
+    void clearBuffer(string tableName, int pageIndex);
     Page getPage(string tableName, int pageIndex);
     void writePage(string pageName, vector<vector<int>> rows);
     void deleteFile(string tableName, int pageIndex);

@@ -309,6 +309,7 @@ void Table::print()
     uint count = min((long long)20, this->rowCount);
 
     // // print headings
+    bufferManager.clearBuffer(this->tableName,0);
     Cursor cursor(this->tableName, 0);
     vector<int> row;
     if(parsedQuery.ismatrix){
@@ -368,6 +369,7 @@ void Table::makePermanent()
     for (int rowCounter = 0; rowCounter < this->rowCount; rowCounter++)
     {
         row = cursor.getNext();
+        // cout<<row.size()<<"********"<<endl;
         this->writeRow(row, fout);
     }
     fout.close();
