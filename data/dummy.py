@@ -12,9 +12,9 @@ def gen_matrix(n,m):
     df=pd.DataFrame(a)
     df.set_index(0,inplace=True)
     df.columns=[n for i in range(m-1)]
-    df.to_csv("I.csv")
+    df.to_csv("H.csv")
 
-gen_matrix(11,11)
+gen_matrix(499,499)
 
 # def solution(ans,k):
 #     a=[]

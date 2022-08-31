@@ -100,7 +100,7 @@ void Cursor::transposeLine(int row)
             
             while (this->pageIndex != pageindex)
             {
-                cout<<"updating***************************"<<endl;
+                
                 this->page.updatePage(res,sep);
                 ofstream fout1(this->page.pageName, ios::trunc);
                 for (int i = 0; i < res.size(); i++)
@@ -171,18 +171,15 @@ vector<int> Cursor::getnextline(int j, int start, int end, int pageindex, vector
         int additional = j / tableCatalogue.getTable(tname)->maxElementsperblock;
         int rem = (ind + j) % tableCatalogue.getTable(tname)->maxElementsperblock;
         pageindex =(i*tableCatalogue.getTable(tname)->columnCount+j) / tableCatalogue.getTable(tname)->maxElementsperblock;
-        if(write==1){
-            cout<<res[i-start]<<" "<<j<<" "<<rem<<endl;
-        }
-
+      
         while (this->pageIndex != pageindex)
         {
-            cout<<this->pageIndex<<" "<<pageindex<<endl;
+            // cout<<this->pageIndex<<" "<<pageindex<<endl;
             if(write==1){
                 this->page.writePage(i,tableCatalogue.getTable(tname)->sep);
             }
             tableCatalogue.getTable(tname)->getNextPage(this);
-            cout<<this->pageIndex<<endl;
+          
         }
         tableCatalogue.getTable(tname)->sep;
         if(write==0){
@@ -193,11 +190,14 @@ vector<int> Cursor::getnextline(int j, int start, int end, int pageindex, vector
         }
        
     }
+    // cout<<endl;
     if(write==1){
         this->page.writePage(end-1,tableCatalogue.getTable(tname)->sep);
     }
+    bufferManager.clearBuffer(tableCatalogue.getTable(tname)->tableName,0);
+    // cout<<endl;
     
-    cout<<endl;
+    // cout<<endl;
     return ans;
 }
 

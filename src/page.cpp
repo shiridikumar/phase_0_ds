@@ -126,12 +126,7 @@ int Page::getRowElement(int rowIndex, int columnindex, vector<int> sep)
 
 void Page::putRowElement(int rowIndex, int columnindex, vector<int> &res)
 {
-    // if(rowIndex==86 && this->pageIndex==3){
-        // cout<<res[rowIndex]<<"-----------------------------"<<endl;
-    // }
-    // if(this->pageIndex==3 && rowIndex==0){
-    // cout<<columnindex<<" **************************  "<<res[rowIndex]<<endl;
-    // }
+  
     this->rows[0][columnindex] = res[rowIndex];
 }
 
