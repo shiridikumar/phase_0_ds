@@ -1,5 +1,7 @@
 //Server Code
 #include "global.h"
+#include <unistd.h>
+#include <signal.h>
 
 using namespace std;
 
@@ -45,7 +47,7 @@ int main(void)
 
         if (tokenizedQuery.size() == 1 && tokenizedQuery.front() == "QUIT")
         {
-            break;
+            kill(getpid(), SIGINT);
         }
 
         if (tokenizedQuery.empty())

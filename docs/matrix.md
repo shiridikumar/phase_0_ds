@@ -72,3 +72,58 @@ author:
      and some othe utility functions in page.cpp and etc.
 - There is no additional memory is used except for two constant length vectors which are equal to page size named as res and res1.
 - These vectors are cleared periodically whenever the current page block is full and guarantee to not exceed the page size.
+
+# Part 3 Discussion
+
+We assume that the user specifies that the matrix is `SPARSE` while giving input.
+
+## Compression Technique
+
+We store each row of the sparse matrix as a linked list. Here, each node of the linked list contains the column index (from the original matrix) and the associated matrix value.
+
+So, for example if
+```
+        1 3 0 0 0 
+A  = [  0 2 5 0 0 ]
+        1 0 0 0 3
+        0 0 -2 0 0
+        0 0 0 0 0
+```
+
+then the linked list will be like this:
+
+```
+Node: (column_index, value)
+
+Linked List:
+
+row1: (0, 1) -> (1, 3)
+row2: (1, 2) -> (2, 5)
+row3: (0, 1) -> (4, 3)
+row4: (2, -2)
+row5: 
+```
+
+Since, we only store the non-zero values, this approach is fairly efficient for sparse matrices. And we can use this to save memory and space in our system.
+
+## Associated Page layout
+
+Since our approach consists of variable-length rows, we will have a row separator to be stored in the pages as well; that will mark the ending of each row.
+
+For a particular row, let the number of nodes be *n*.
+
+Then for this row, *2n* values will be stored (the column index and then the node value). 
+
+Rest of the page layout remains same; in that each row will be stored in the pages (separated by the row separator). If one page is completely written to, then we will store the rest of the row contents in a new page (in a similar way to our original approach). Here, the row separator will be present in the new block so that we keep reading into the next block for this row (and not stop in the first block). Here we will have another block separator index that will note the offset which denotes the index from where the row has been cut (between the two pages).
+
+## Transpose of the sparse matrix
+
+For transposing the sparse matrix, we can just find the row index by counting the row separators. Using the row separators, we can also get the starting of each row.
+
+For transposing, we'll create a map of linked lists for implementing the above mentioned page layout in the main memory (which doesn't exceed the page block size for the given page). Each key in the map will be the new row index and the linked list will contain the transposed column index and associated value.
+
+For creating this linked list, we traverse through our page block row-wise and for each column index and value (and associated row index) we can add this to the appropriate key (here, column index) into our map. The new node will be added as (row_index, value) in the linked list.
+
+Whenever we reach the page block end (in the loaded matrix), we replace our map values into the original page block and clear the map (for further pages).
+
+In order to export, traverse normally through the pages and print zeros until they see the column index due to which we will write the associated node value.
