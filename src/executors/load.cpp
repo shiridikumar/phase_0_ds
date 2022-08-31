@@ -29,24 +29,19 @@ bool syntacticParseLOAD()
 
 bool semanticParseLOAD()
 {
-    if(tokenizedQuery[1]=="MATRIX"){
-        cout<<"Matrix load"<<endl;
+    logger.log("semanticParseLOAD");
+    if (tableCatalogue.isTable(parsedQuery.loadRelationName))
+    {
+        cout << "SEMANTIC ERROR: Relation already exists" << endl;
+        return false;
     }
-    else{
 
-        logger.log("semanticParseLOAD");
-        if (tableCatalogue.isTable(parsedQuery.loadRelationName))
-        {
-            cout << "SEMANTIC ERROR: Relation already exists" << endl;
-            return false;
-        }
-
-        if (!isFileExists(parsedQuery.loadRelationName))
-        {
-            cout << "SEMANTIC ERROR: Data file doesn't exist" << endl;
-            return false;
-        }
+    if (!isFileExists(parsedQuery.loadRelationName))
+    {
+        cout << "SEMANTIC ERROR: Data file doesn't exist" << endl;
+        return false;
     }
+
     return true;
 }
 

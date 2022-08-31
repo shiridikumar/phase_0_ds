@@ -45,8 +45,8 @@ void executeCROSSTRANSPOSE() {
     Table table2 = *(tableCatalogue.getTable(parsedQuery.crossTransSecondMatrix));
 
     // logger.log("Page::writePage");
-    ofstream fout1(parsedQuery.crossTransSecondMatrix, ios::out);
-    ofstream fout2(parsedQuery.crossTransSecondMatrix, ios::out);
+    // ofstream fout1(parsedQuery.crossTransSecondMatrix, ios::out);
+    // ofstream fout2(parsedQuery.crossTransSecondMatrix, ios::out);
     vector<int> pageindex;
     for(int i=0;i<table2.rowCount;i++){
         pageindex.push_back(i*table2.columnCount/table2.maxElementsperblock);
@@ -62,6 +62,6 @@ void executeCROSSTRANSPOSE() {
     int ind=0;
     Cursor cursor1(table1.tableName, 0);
     cursor1.transposeLine(0);
-    cout << "cross transpose" << endl;
+    // cout << "cross transpose" << endl;
     return;
 }
