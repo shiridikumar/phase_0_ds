@@ -76,7 +76,7 @@ void Cursor::transposeLine(int row)
     vector<int> res;
     vector<int> res1;
     int ind = 0;
-    ofstream fout2(parsedQuery.crossTransSecondMatrix, ios::out);
+    // ofstream fout2(parsedQuery.crossTransSecondMatrix, ios::out);
     vector<int> sep = tableCatalogue.getTable(tname)->sep;
     string tail=(parsedQuery.crossTransFirstMatrix==parsedQuery.crossTransSecondMatrix)?"_dup":"";
     Table table2 = *(tableCatalogue.getTable(parsedQuery.crossTransSecondMatrix+tail));
